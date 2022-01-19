@@ -911,6 +911,13 @@ func (c *cache) Delete(k string) {
 	}
 }
 
+// Remove deletes an item from the cache without evicting.
+func (c *cache) Remove(k string) {
+	c.mu.Lock()
+	c.delete(k)
+	c.mu.Unlock()
+}
+
 func (c *cache) delete(k string) (interface{}, bool) {
 	if c.onEvicted != nil {
 		if v, found := c.items[k]; found {
