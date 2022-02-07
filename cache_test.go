@@ -1778,10 +1778,10 @@ func TestFreezeThaw(t *testing.T) {
 	var found bool
 
 	tc := New(50*time.Millisecond, 1*time.Millisecond)
-	tc.Set("a", 4, 200*time.Millisecond)
+	tc.Set("a", 4, 20*time.Millisecond)
 
 	tc.Freeze()
-	<-time.After(250 * time.Millisecond)
+	<-time.After(100 * time.Millisecond)
 
 	_, found = tc.items["a"]
 	if !found {
