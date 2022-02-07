@@ -1780,12 +1780,6 @@ func TestFreezeThaw(t *testing.T) {
 	tc := New(50*time.Millisecond, 1*time.Millisecond)
 	tc.Set("a", 4, 200*time.Millisecond)
 
-	<-time.After(20 * time.Millisecond)
-	_, found = tc.Get("a")
-	if !found {
-		t.Error("Not Found b when it should have been still here")
-	}
-
 	tc.Freeze()
 	<-time.After(250 * time.Millisecond)
 
@@ -1796,6 +1790,7 @@ func TestFreezeThaw(t *testing.T) {
 
 	tc.Thaw()
 	<-time.After(100 * time.Millisecond)
+
 	_, found = tc.items["a"]
 	if found {
 		t.Error("Found a when it should have been deleted")
