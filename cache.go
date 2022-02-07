@@ -52,8 +52,7 @@ func (c *cache) Freeze() {
 		c.frozen <- true
 		c.DeleteExpired()
 	}()
-	frz := <-c.frozen
-	if frz {
+	if <-c.frozen {
 		return
 	}
 	c.janitor.stop <- true
@@ -64,12 +63,12 @@ func (c *cache) Thaw() {
 	defer func() {
 		c.frozen <- false
 	}()
-	frz := <-c.frozen
-	if !frz {
+	if !<-c.frozen {
 		return
 	}
 	if c.defaultExpiration > 0 {
 		runJanitor(c, c.defaultExpiration)
+		runtime.SetFinalizer(c, nil)
 		runtime.SetFinalizer(c, func(c *cache) {
 			c.janitor.stop <- true
 		})
