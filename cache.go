@@ -220,7 +220,7 @@ func (c *cache) Increment(k string, n int64) error {
 		v.Object = v.Object.(float64) + float64(n)
 	default:
 		c.mu.Unlock()
-		return fmt.Errorf("The value for %s is not an integer", k)
+		return fmt.Errorf("the value for %s is not an integer", k)
 	}
 	c.items[k] = v
 	c.mu.Unlock()
@@ -246,7 +246,7 @@ func (c *cache) IncrementFloat(k string, n float64) error {
 		v.Object = v.Object.(float64) + n
 	default:
 		c.mu.Unlock()
-		return fmt.Errorf("The value for %s does not have type float32 or float64", k)
+		return fmt.Errorf("the value for %s does not have type float32 or float64", k)
 	}
 	c.items[k] = v
 	c.mu.Unlock()
@@ -266,7 +266,7 @@ func (c *cache) IncrementInt(k string, n int) (int, error) {
 	rv, ok := v.Object.(int)
 	if !ok {
 		c.mu.Unlock()
-		return 0, fmt.Errorf("The value for %s is not an int", k)
+		return 0, fmt.Errorf("the value for %s is not an int", k)
 	}
 	nv := rv + n
 	v.Object = nv
@@ -288,7 +288,7 @@ func (c *cache) IncrementInt8(k string, n int8) (int8, error) {
 	rv, ok := v.Object.(int8)
 	if !ok {
 		c.mu.Unlock()
-		return 0, fmt.Errorf("The value for %s is not an int8", k)
+		return 0, fmt.Errorf("the value for %s is not an int8", k)
 	}
 	nv := rv + n
 	v.Object = nv
@@ -310,7 +310,7 @@ func (c *cache) IncrementInt16(k string, n int16) (int16, error) {
 	rv, ok := v.Object.(int16)
 	if !ok {
 		c.mu.Unlock()
-		return 0, fmt.Errorf("The value for %s is not an int16", k)
+		return 0, fmt.Errorf("the value for %s is not an int16", k)
 	}
 	nv := rv + n
 	v.Object = nv
@@ -332,7 +332,7 @@ func (c *cache) IncrementInt32(k string, n int32) (int32, error) {
 	rv, ok := v.Object.(int32)
 	if !ok {
 		c.mu.Unlock()
-		return 0, fmt.Errorf("The value for %s is not an int32", k)
+		return 0, fmt.Errorf("the value for %s is not an int32", k)
 	}
 	nv := rv + n
 	v.Object = nv
@@ -354,7 +354,7 @@ func (c *cache) IncrementInt64(k string, n int64) (int64, error) {
 	rv, ok := v.Object.(int64)
 	if !ok {
 		c.mu.Unlock()
-		return 0, fmt.Errorf("The value for %s is not an int64", k)
+		return 0, fmt.Errorf("the value for %s is not an int64", k)
 	}
 	nv := rv + n
 	v.Object = nv
@@ -376,7 +376,7 @@ func (c *cache) IncrementUint(k string, n uint) (uint, error) {
 	rv, ok := v.Object.(uint)
 	if !ok {
 		c.mu.Unlock()
-		return 0, fmt.Errorf("The value for %s is not an uint", k)
+		return 0, fmt.Errorf("the value for %s is not an uint", k)
 	}
 	nv := rv + n
 	v.Object = nv
@@ -398,7 +398,7 @@ func (c *cache) IncrementUintptr(k string, n uintptr) (uintptr, error) {
 	rv, ok := v.Object.(uintptr)
 	if !ok {
 		c.mu.Unlock()
-		return 0, fmt.Errorf("The value for %s is not an uintptr", k)
+		return 0, fmt.Errorf("the value for %s is not an uintptr", k)
 	}
 	nv := rv + n
 	v.Object = nv
@@ -420,7 +420,7 @@ func (c *cache) IncrementUint8(k string, n uint8) (uint8, error) {
 	rv, ok := v.Object.(uint8)
 	if !ok {
 		c.mu.Unlock()
-		return 0, fmt.Errorf("The value for %s is not an uint8", k)
+		return 0, fmt.Errorf("the value for %s is not an uint8", k)
 	}
 	nv := rv + n
 	v.Object = nv
@@ -442,7 +442,7 @@ func (c *cache) IncrementUint16(k string, n uint16) (uint16, error) {
 	rv, ok := v.Object.(uint16)
 	if !ok {
 		c.mu.Unlock()
-		return 0, fmt.Errorf("The value for %s is not an uint16", k)
+		return 0, fmt.Errorf("the value for %s is not an uint16", k)
 	}
 	nv := rv + n
 	v.Object = nv
@@ -464,7 +464,7 @@ func (c *cache) IncrementUint32(k string, n uint32) (uint32, error) {
 	rv, ok := v.Object.(uint32)
 	if !ok {
 		c.mu.Unlock()
-		return 0, fmt.Errorf("The value for %s is not an uint32", k)
+		return 0, fmt.Errorf("the value for %s is not an uint32", k)
 	}
 	nv := rv + n
 	v.Object = nv
@@ -486,7 +486,7 @@ func (c *cache) IncrementUint64(k string, n uint64) (uint64, error) {
 	rv, ok := v.Object.(uint64)
 	if !ok {
 		c.mu.Unlock()
-		return 0, fmt.Errorf("The value for %s is not an uint64", k)
+		return 0, fmt.Errorf("the value for %s is not an uint64", k)
 	}
 	nv := rv + n
 	v.Object = nv
@@ -508,7 +508,7 @@ func (c *cache) IncrementFloat32(k string, n float32) (float32, error) {
 	rv, ok := v.Object.(float32)
 	if !ok {
 		c.mu.Unlock()
-		return 0, fmt.Errorf("The value for %s is not an float32", k)
+		return 0, fmt.Errorf("the value for %s is not an float32", k)
 	}
 	nv := rv + n
 	v.Object = nv
@@ -530,7 +530,7 @@ func (c *cache) IncrementFloat64(k string, n float64) (float64, error) {
 	rv, ok := v.Object.(float64)
 	if !ok {
 		c.mu.Unlock()
-		return 0, fmt.Errorf("The value for %s is not an float64", k)
+		return 0, fmt.Errorf("the value for %s is not an float64", k)
 	}
 	nv := rv + n
 	v.Object = nv
@@ -582,7 +582,7 @@ func (c *cache) Decrement(k string, n int64) error {
 		v.Object = v.Object.(float64) - float64(n)
 	default:
 		c.mu.Unlock()
-		return fmt.Errorf("The value for %s is not an integer", k)
+		return fmt.Errorf("the value for %s is not an integer", k)
 	}
 	c.items[k] = v
 	c.mu.Unlock()
@@ -608,7 +608,7 @@ func (c *cache) DecrementFloat(k string, n float64) error {
 		v.Object = v.Object.(float64) - n
 	default:
 		c.mu.Unlock()
-		return fmt.Errorf("The value for %s does not have type float32 or float64", k)
+		return fmt.Errorf("the value for %s does not have type float32 or float64", k)
 	}
 	c.items[k] = v
 	c.mu.Unlock()
@@ -628,7 +628,7 @@ func (c *cache) DecrementInt(k string, n int) (int, error) {
 	rv, ok := v.Object.(int)
 	if !ok {
 		c.mu.Unlock()
-		return 0, fmt.Errorf("The value for %s is not an int", k)
+		return 0, fmt.Errorf("the value for %s is not an int", k)
 	}
 	nv := rv - n
 	v.Object = nv
@@ -650,7 +650,7 @@ func (c *cache) DecrementInt8(k string, n int8) (int8, error) {
 	rv, ok := v.Object.(int8)
 	if !ok {
 		c.mu.Unlock()
-		return 0, fmt.Errorf("The value for %s is not an int8", k)
+		return 0, fmt.Errorf("the value for %s is not an int8", k)
 	}
 	nv := rv - n
 	v.Object = nv
@@ -672,7 +672,7 @@ func (c *cache) DecrementInt16(k string, n int16) (int16, error) {
 	rv, ok := v.Object.(int16)
 	if !ok {
 		c.mu.Unlock()
-		return 0, fmt.Errorf("The value for %s is not an int16", k)
+		return 0, fmt.Errorf("the value for %s is not an int16", k)
 	}
 	nv := rv - n
 	v.Object = nv
@@ -694,7 +694,7 @@ func (c *cache) DecrementInt32(k string, n int32) (int32, error) {
 	rv, ok := v.Object.(int32)
 	if !ok {
 		c.mu.Unlock()
-		return 0, fmt.Errorf("The value for %s is not an int32", k)
+		return 0, fmt.Errorf("the value for %s is not an int32", k)
 	}
 	nv := rv - n
 	v.Object = nv
@@ -716,7 +716,7 @@ func (c *cache) DecrementInt64(k string, n int64) (int64, error) {
 	rv, ok := v.Object.(int64)
 	if !ok {
 		c.mu.Unlock()
-		return 0, fmt.Errorf("The value for %s is not an int64", k)
+		return 0, fmt.Errorf("the value for %s is not an int64", k)
 	}
 	nv := rv - n
 	v.Object = nv
@@ -738,7 +738,7 @@ func (c *cache) DecrementUint(k string, n uint) (uint, error) {
 	rv, ok := v.Object.(uint)
 	if !ok {
 		c.mu.Unlock()
-		return 0, fmt.Errorf("The value for %s is not an uint", k)
+		return 0, fmt.Errorf("the value for %s is not an uint", k)
 	}
 	nv := rv - n
 	v.Object = nv
@@ -760,7 +760,7 @@ func (c *cache) DecrementUintptr(k string, n uintptr) (uintptr, error) {
 	rv, ok := v.Object.(uintptr)
 	if !ok {
 		c.mu.Unlock()
-		return 0, fmt.Errorf("The value for %s is not an uintptr", k)
+		return 0, fmt.Errorf("the value for %s is not an uintptr", k)
 	}
 	nv := rv - n
 	v.Object = nv
@@ -782,7 +782,7 @@ func (c *cache) DecrementUint8(k string, n uint8) (uint8, error) {
 	rv, ok := v.Object.(uint8)
 	if !ok {
 		c.mu.Unlock()
-		return 0, fmt.Errorf("The value for %s is not an uint8", k)
+		return 0, fmt.Errorf("the value for %s is not an uint8", k)
 	}
 	nv := rv - n
 	v.Object = nv
@@ -804,7 +804,7 @@ func (c *cache) DecrementUint16(k string, n uint16) (uint16, error) {
 	rv, ok := v.Object.(uint16)
 	if !ok {
 		c.mu.Unlock()
-		return 0, fmt.Errorf("The value for %s is not an uint16", k)
+		return 0, fmt.Errorf("the value for %s is not an uint16", k)
 	}
 	nv := rv - n
 	v.Object = nv
@@ -826,7 +826,7 @@ func (c *cache) DecrementUint32(k string, n uint32) (uint32, error) {
 	rv, ok := v.Object.(uint32)
 	if !ok {
 		c.mu.Unlock()
-		return 0, fmt.Errorf("The value for %s is not an uint32", k)
+		return 0, fmt.Errorf("the value for %s is not an uint32", k)
 	}
 	nv := rv - n
 	v.Object = nv
@@ -848,7 +848,7 @@ func (c *cache) DecrementUint64(k string, n uint64) (uint64, error) {
 	rv, ok := v.Object.(uint64)
 	if !ok {
 		c.mu.Unlock()
-		return 0, fmt.Errorf("The value for %s is not an uint64", k)
+		return 0, fmt.Errorf("the value for %s is not an uint64", k)
 	}
 	nv := rv - n
 	v.Object = nv
@@ -870,7 +870,7 @@ func (c *cache) DecrementFloat32(k string, n float32) (float32, error) {
 	rv, ok := v.Object.(float32)
 	if !ok {
 		c.mu.Unlock()
-		return 0, fmt.Errorf("The value for %s is not an float32", k)
+		return 0, fmt.Errorf("the value for %s is not an float32", k)
 	}
 	nv := rv - n
 	v.Object = nv
@@ -892,7 +892,7 @@ func (c *cache) DecrementFloat64(k string, n float64) (float64, error) {
 	rv, ok := v.Object.(float64)
 	if !ok {
 		c.mu.Unlock()
-		return 0, fmt.Errorf("The value for %s is not an float64", k)
+		return 0, fmt.Errorf("the value for %s is not an float64", k)
 	}
 	nv := rv - n
 	v.Object = nv
@@ -1073,6 +1073,10 @@ func (c *cache) Flush() {
 	c.mu.Lock()
 	c.items = map[string]Item{}
 	c.mu.Unlock()
+}
+
+func (c *cache) Freeze() {
+
 }
 
 type janitor struct {
