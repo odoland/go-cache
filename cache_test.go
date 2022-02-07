@@ -1773,3 +1773,26 @@ func TestGetWithExpiration(t *testing.T) {
 		t.Error("expiration for e is in the past")
 	}
 }
+
+func TestFreezeThaw(t *testing.T) {
+	var found bool
+
+	tc := New(50*time.Millisecond, 1*time.Millisecond)
+	tc.Set("a", 4, 20*time.Millisecond)
+
+	tc.Freeze()
+	<-time.After(100 * time.Millisecond)
+
+	_, found = tc.items["a"]
+	if !found {
+		t.Error("Could not find a when it should have been frozen")
+	}
+
+	tc.Thaw()
+	<-time.After(100 * time.Millisecond)
+
+	_, found = tc.items["a"]
+	if found {
+		t.Error("Found a when it should have been deleted")
+	}
+}

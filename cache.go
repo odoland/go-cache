@@ -43,6 +43,37 @@ type cache struct {
 	mu                sync.RWMutex
 	onEvicted         func(string, interface{})
 	janitor           *janitor
+	frozen            chan bool
+}
+
+// Freeze stops the janitor goroutine from cleaning up expired. Any currently expired will be evicted.
+func (c *cache) Freeze() {
+	defer func() {
+		c.frozen <- true
+		c.DeleteExpired()
+	}()
+	frz := <-c.frozen
+	if frz {
+		return
+	}
+	c.janitor.stop <- true
+}
+
+// Thaw resumes the janitor's clean up
+func (c *cache) Thaw() {
+	defer func() {
+		c.frozen <- false
+	}()
+	frz := <-c.frozen
+	if !frz {
+		return
+	}
+	if c.defaultExpiration > 0 {
+		runJanitor(c, c.defaultExpiration)
+		runtime.SetFinalizer(c, func(c *cache) {
+			c.janitor.stop <- true
+		})
+	}
 }
 
 // Add an item to the cache, replacing any existing item. If the duration is 0
@@ -1075,10 +1106,6 @@ func (c *cache) Flush() {
 	c.mu.Unlock()
 }
 
-func (c *cache) Freeze() {
-
-}
-
 type janitor struct {
 	Interval time.Duration
 	stop     chan bool
@@ -1088,11 +1115,19 @@ func (j *janitor) Run(c *cache) {
 	ticker := time.NewTicker(j.Interval)
 	for {
 		select {
-		case <-ticker.C:
-			c.DeleteExpired()
+		// An extra stop is place here to ensure that if both the ticker and stop are ready,
+		// The stop will get priority after at most one ticker is taken.
 		case <-j.stop:
 			ticker.Stop()
 			return
+		default:
+			select {
+			case <-ticker.C:
+				c.DeleteExpired()
+			case <-j.stop:
+				ticker.Stop()
+				return
+			}
 		}
 	}
 }
@@ -1114,9 +1149,12 @@ func newCache(de time.Duration, m map[string]Item) *cache {
 	if de == 0 {
 		de = -1
 	}
+	frozen := make(chan bool, 1)
+	frozen <- false
 	c := &cache{
 		defaultExpiration: de,
 		items:             m,
+		frozen:            frozen,
 	}
 	return c
 }
