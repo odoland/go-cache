@@ -1452,6 +1452,7 @@ func BenchmarkRWMutexMapGet(b *testing.B) {
 	b.StartTimer()
 	for i := 0; i < b.N; i++ {
 		mu.RLock()
+		//lint:ignore S1005 we want to test the time it takes for the getter, so we must
 		_, _ = m["foo"]
 		mu.RUnlock()
 	}
@@ -1467,6 +1468,7 @@ func BenchmarkRWMutexInterfaceMapGetStruct(b *testing.B) {
 	b.StartTimer()
 	for i := 0; i < b.N; i++ {
 		mu.RLock()
+		//lint:ignore S1005 we want to test the time it takes for the getter, so we must
 		_, _ = m[s]
 		mu.RUnlock()
 	}
@@ -1481,6 +1483,7 @@ func BenchmarkRWMutexInterfaceMapGetString(b *testing.B) {
 	b.StartTimer()
 	for i := 0; i < b.N; i++ {
 		mu.RLock()
+		//lint:ignore S1005 we want to test the time it takes for the getter, so we must
 		_, _ = m["foo"]
 		mu.RUnlock()
 	}
@@ -1529,6 +1532,7 @@ func BenchmarkRWMutexMapGetConcurrent(b *testing.B) {
 		go func() {
 			for j := 0; j < each; j++ {
 				mu.RLock()
+				//lint:ignore S1005 we want to test the time it takes for the getter, so we must
 				_, _ = m["foo"]
 				mu.RUnlock()
 			}
